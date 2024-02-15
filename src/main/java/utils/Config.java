@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public enum Config {
     SAVE_PATH("D:\\Development\\Code\\Java\\NetworkTrafficConsume\\src\\main\\resources"),
-    DOWNLOAD_THREADS(16),
+    DOWNLOAD_THREADS(32),
     TIMEOUT(5000),
     User_Agent(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0");

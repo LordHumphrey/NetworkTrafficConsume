@@ -37,28 +37,30 @@ class CoreDispatcherTest {
 
     @Test
     void downloadFile() throws MalformedURLException {
+        for (int i = 0; i < 128; i++) {
 
-        //            URL url =
-        // URI.create("https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.37.5.3.exe")
-        //                    .toURL();
-        URL url = URI.create("https://mirrors.pku.edu.cn/debian-cd/current/amd64/iso-dvd/debian-12.5.0-amd64-DVD-1.iso")
-                .toURL();
-        String[] urlFileNameSpilt = url.getFile().split("/");
-        DownloadInfo downloadInfo = DownloadInfo.builder()
-                .fileUrl(url)
-                .downloadedSize(new LongAdder())
-                .preSize(new AtomicLong())
-                .speed(new AtomicLong())
-                .remainSize(new AtomicLong())
-                .filePath(Config.SAVE_PATH.getStringValue())
-                .fileName(urlFileNameSpilt[urlFileNameSpilt.length - 1])
-                .build();
-        CoreDispatcher coreDispatcher = CoreDispatcher.builder()
-                .downloadInfo(downloadInfo)
-                .asyncFileDownloader(new AsyncFileDownloader())
-                .build();
-        coreDispatcher.getFileSize();
-        coreDispatcher.outputDownloadInfo();
-        coreDispatcher.downloadFile();
+            URL url = URI.create("https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.37.5.3.exe")
+                    .toURL();
+            //        URL url =
+            // URI.create("https://mirrors.pku.edu.cn/debian-cd/current/amd64/iso-dvd/debian-12.5.0-amd64-DVD-1.iso")
+            //                .toURL();
+            String[] urlFileNameSpilt = url.getFile().split("/");
+            DownloadInfo downloadInfo = DownloadInfo.builder()
+                    .fileUrl(url)
+                    .downloadedSize(new LongAdder())
+                    .preSize(new AtomicLong())
+                    .speed(new AtomicLong())
+                    .remainSize(new AtomicLong())
+                    .filePath(Config.SAVE_PATH.getStringValue())
+                    .fileName(urlFileNameSpilt[urlFileNameSpilt.length - 1])
+                    .build();
+            CoreDispatcher coreDispatcher = CoreDispatcher.builder()
+                    .downloadInfo(downloadInfo)
+                    .asyncFileDownloader(new AsyncFileDownloader())
+                    .build();
+            coreDispatcher.getFileSize();
+            coreDispatcher.outputDownloadInfo();
+            coreDispatcher.downloadFile();
+        }
     }
 }

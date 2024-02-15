@@ -51,12 +51,12 @@ public class DownloadInfo {
         if (seconds < 60) {
             return String.format("%.2f s", seconds);
         } else if (seconds < 3600) {
-            return String.format("%.2f min %.2f s", seconds / 60, seconds % 60);
+            return String.format("%.0f min %.2f s", seconds / 60, seconds % 60);
         } else if (seconds < 86400) {
-            return String.format("%.2f h %.2f min %.2f s", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
+            return String.format("%.0f h %.0f min %.2f s", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
         } else {
             return String.format(
-                    "%.2f d %.2f h %.2f min %.2f s",
+                    "%.0f d %.0f h %.0f min %.2f s",
                     seconds / 86400, (seconds % 86400) / 3600, (seconds % 3600) / 60, seconds % 60);
         }
     }
@@ -81,13 +81,13 @@ public class DownloadInfo {
         this.calculateRemainTime();
         if (speed.get() == 0.0) {
             return String.format(
-                    "Downloaded: %s, TotalSize: %s, Speed: %s, RemainTime: %s",
-                    formatSize(downloadedSize.doubleValue()), formatSize(totalSize), "0.00 B/s", "-");
+                    "TotalSize: %s, Downloaded: %s, Speed: %s, RemainTime: %s",
+                    formatSize(totalSize), formatSize(downloadedSize.doubleValue()), "0.00 B/s", "-");
         }
         return String.format(
-                "Downloaded: %s, TotalSize: %s, Speed: %s, RemainTime: %s",
-                formatSize(downloadedSize.doubleValue()),
+                "TotalSize: %s, Downloaded: %s, Speed: %s/s, RemainTime: %s",
                 formatSize(totalSize),
+                formatSize(downloadedSize.doubleValue()),
                 formatSize(speed.get()),
                 formatTimeUnit(Double.parseDouble(remainTime)));
     }

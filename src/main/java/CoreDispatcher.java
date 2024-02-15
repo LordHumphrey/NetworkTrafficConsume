@@ -66,14 +66,6 @@ public class CoreDispatcher {
             futures.add(asyncFileDownloader
                     .downloadFile(downloadInfo, headersMap)
                     .thenApply(response -> {
-                        long downloadedBytesLength = response.headers().allValues("content-length").stream()
-                                .mapToLong(Long::parseLong)
-                                .sum();
-                        downloadInfo.getDownloadedSize().add(downloadedBytesLength);
-                        log.debug("Downloaded {} bytes", downloadedBytesLength);
-                        return response;
-                    })
-                    .thenApply(response -> {
                         long[] range = DownloadUtils.extractRange(response, start, end);
                         try (InputStream inputStream = response.body()) {
                             byte[] bytes = inputStream.readAllBytes();

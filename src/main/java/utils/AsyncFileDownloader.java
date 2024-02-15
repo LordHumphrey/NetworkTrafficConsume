@@ -45,7 +45,9 @@ public class AsyncFileDownloader implements FileDownloader<CompletableFuture<Htt
                     .sendAsync(httpRequest, HttpResponse.BodyHandlers.ofInputStream())
                     .thenApply(response -> {
                         log.debug("Received HTTP response: {}", response);
-                        return response;
+                        CountingInputStream countingInputStream =
+                                new CountingInputStream(response.body(), downloadInfo);
+                        return new CountingHttpResponse<>(response, countingInputStream);
                     });
         } catch (URISyntaxException e) {
             log.error("Error occurred while creating HTTP request", e);
